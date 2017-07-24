@@ -2,9 +2,20 @@
   <div class="home">
 
     <!--<input type="file" accept=".fdb" id="fileId"/>-->
-    <input type="text" v-model="fdbUrl" />
-    <button @click="getSend()" > get发送</button>
-    <button @click="postSend()" > post发送</button>
+    <div>
+      <label>項目名</label>
+      <input type="text" v-model="projectName" />
+    </div>
+    <div>
+      <label>文件路徑</label>
+      <input type="text" v-model="fdbPath" />
+    </div>
+    <div>
+      <button @click="getSend()" > get发送</button>
+      <button @click="postSend()" > post发送</button>
+    </div>
+
+
   </div>
 </template>
 
@@ -13,31 +24,35 @@ export default {
   name: 'hello',
   data () {
     return {
-      fdbUrl:""
+      fdbPath:"",
+      projectName:""
     }
   },
   methods:{
       getSend(){
-         /* var fdbfile  = document.querySelector("#fileId");
-          alert(this.getPath(fdbfile));
-          for(var item in fdbfile){
-              console.log(fdbfile[item],item)
-          }*/
-         var that = this;
+
+        var that = this;
+        var path  = that.fdbPath.replace(/\\/g, "/");
          if(that.fdbUrl!=""){
            this.$http.get(fdb_url+'/fdb',{
-               params:{"url1":that.fdbUrl}
+               params:{
+                   "path":path,
+                   "projectName":that.projectName
+               }
            }).then(function (res) {
               console.log(res);
             })
          }
 
+
       },
       postSend(){
         var that = this;
+        var path  = that.fdbPath.replace(/\\/g, "/");
         if(that.fdbUrl!=""){
           this.$http.post(fdb_url+'/fdb',{
-            "url1":that.fdbUrl
+            "path":path,
+            "projectName":that.projectName
           }).then(function (res) {
             console.log(res);
           })
