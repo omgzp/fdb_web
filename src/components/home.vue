@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-
+    <h1>批量发布fdb服务</h1>
     <!--<input type="file" accept=".fdb" id="fileId"/>-->
     <div>
       <label>項目名</label>
@@ -12,7 +12,7 @@
     </div>
     <div>
       <button @click="getSend()" > get发送</button>
-      <button @click="postSend()" > post发送</button>
+      <!--<button @click="postSend()" > post发送</button>-->
     </div>
 
 
@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: 'hello',
+  name: 'home',
   data () {
     return {
       fdbPath:"",
@@ -34,7 +34,7 @@ export default {
         var that = this;
         var path  = that.fdbPath.replace(/\\/g, "/");
          if(that.fdbUrl!=""){
-           this.$http.get(fdb_url+'/fdb',{
+           this.$http.get(fdb_url+'/fdb/addDataSources',{
                params:{
                    "path":path,
                    "projectName":that.projectName
@@ -50,7 +50,7 @@ export default {
         var that = this;
         var path  = that.fdbPath.replace(/\\/g, "/");
         if(that.fdbUrl!=""){
-          this.$http.post(fdb_url+'/fdb',{
+          this.$http.post(fdb_url+'/fdb/addDataSources',{
             "path":path,
             "projectName":that.projectName
           }).then(function (res) {
